@@ -1,0 +1,39 @@
+{
+  "plugins": [
+    "@nxtensions/astro"
+  ],
+  "npmScope": "cv-dev",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "lint": {
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintignore"
+      ]
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "check"
+        ],
+        "accessToken": "OTA5OTg1YjgtMGRlMi00Y2MwLTlhNWMtZTRiZGQxMWIwZjVhfHJlYWQtd3JpdGU="
+      }
+    }
+  },
+  "affected": {
+    "defaultBase": "master"
+  },
+  "defaultProject": "website"
+}
