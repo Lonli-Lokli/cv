@@ -10,8 +10,6 @@
   font-style: normal;
 }
 
-/* Custom component styles */
-/* Copy to clipboard */
 pre[class*='astro-code'] {
   position: relative;
   margin: 5px 0;
@@ -44,8 +42,6 @@ pre[class*='astro-code'] button:hover {
     padding: 0.1rem;
   }
 }
-/* End copy to clipboard */
-/* #add9f4 - old blue color */
 @layer base {
   body {
     @apply scrollbar-accent;

@@ -4,5 +4,9 @@ module.exports = {
       './src/**/*.{astro,md,js,jsx,svelte,ts,tsx,vue}',
       '../../libs/**/*.{astro,md,js,jsx,svelte,ts,tsx,vue}',
     ],
+    plugins: [
+      require('tailwind-scrollbar')({ nocompatible: true }),
+      require('@tailwindcss/typography')
+    ],
     theme: {},
   };
