@@ -1,15 +1,16 @@
 ---
-import Landing from '../components/Landing.astro';
 import Layout from '../layouts/BaseLayout.astro';
 
 ---
-<html>
-  <body>
-    <h1>Hello, World!</h1>
-  </body>
-</html>
-<style>
-  h1 {
-    color: orange;
-  }
-</style>
+<Layout title="Lonli-Lokli">
+      <h1 class='mb-[-48px] lg:mb-[-48px]'>
+        My name is <span
+          class='font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-base-content to-indigo-500 dark:from-base-content dark:to-indigo-300'
+          >Andrei</span
+        >
+      </h1>
+      <h2>
+        I love
+        <span class='highlight-heading animate-box-shadow dark:animate-winter-box-shadow'>programming.</span>
+      </h2>
+</Layout>
