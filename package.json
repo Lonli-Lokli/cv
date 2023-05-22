@@ -5,7 +5,6 @@
   "scripts": {
     "postinstall": "node ./tools/scripts/patch-nx-cli.js",
     "dev": "astro dev --root apps/website",
-    "start": "astro dev",
     "build": "astro build --root apps/website",
     "preview": "astro preview",
     "astro": "astro "
@@ -24,11 +23,13 @@
     "@nrwl/nx-cloud": "15.3.5",
     "@nrwl/workspace": "15.9.0",
     "@nxtensions/astro": "^3.5.0",
+    "@tailwindcss/typography": "0.5.9",
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "astro": "2.5.0",
     "autoprefixer": "10.4.14",
+    "daisyui": "2.51.6",
     "eslint": "8.40.0",
     "eslint-config-prettier": "8.8.0",
     "nx": "15.9.0",
