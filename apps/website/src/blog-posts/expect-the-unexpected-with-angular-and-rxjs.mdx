@@ -1,0 +1,132 @@
+---
+title: 'Expect the Unexpected With Angular & RxJS'
+date: 'November 22, 2022'
+---
+
+What attracts experts in Angular and depresses beginners? Same thing, RxJS.
+
+Why is it so difficult for beginners? One of the reasons is that there are a considerable number of operators that you need to know and, without searching, understand the difference between concatMap, switchMap and mergeMap.
+
+Why is it so popular with those who have already studied it? Because you begin to understand the full power of RxJS when with a couple of statements, you can do what you would write in imperative code for half a day on two pages. After all, it's so lovely to feel like a god when the code bounces off your fingers, and you happily tell your colleagues how cool you are and, most importantly, just quickly solve the problem.
+
+
+
+
+image
+
+
+
+
+Everybody remembers that multiple subscriptions are terrible and effects running from tap. But what is most often forgotten about RxJS? Exceptions! I distinguish between two types.
+
+Unexpected exceptions result from wrong code or an incredible JSON response from the server - division by zero, undefined accessing a null object, incorrect JSON parsing. I can give many examples; these are full-fledged errors requiring our code changes. Expected exceptions are errors that we can foresee in the application, and the simplest example is a crashed server with data. Here programmers do not correct anything in our code, but usually, we go to swear in another team.
+
+These types of errors, I think, should be separated by the consequences - in the case of the first, it’s beautiful to fall, in the case of the second, to be able to work with them and show our users something from which we can make a beautiful screenshot “they are to blame, not us”.
+
+Let's create a simple Angular application that will load the data of a GitHub user and then (un)beautifully but expectedly crash when trying to load a non-existent one. undefined
+
+
+StackBlitz Demo
+
+
+
+
+image
+
+
+The code accordingly looks like this:
+
+
+
+image
+
+
+It's a relatively simple application that crashes when we don't think of loading a non-existent user. Actually, it will look like a broken button, and everything based on it will fall too. There are many attempts to solve errors using RxJS methods, and I propose to study the article RxJs Error Handling: Complete Practical Guide.
+
+In Angular, I often saw a solution through the definition of separate data, error and isLoading fields in the component model.
+
+
+
+
+image
+
+
+In our case, the template grows on each branch.
+
+
+
+
+image
+
+
+And in the typescript code, you have to make all fields optional, adding headaches when using data in subsequent calls to other services.
+
+StackBlitz Demo
+
+
+
+image
+
+
+Why is this (as well as other solutions) bad?
+
+It’s ugly, both in typescript and HTML.
+It will be full of if/else checks for errors, especially when data is needed to call the following services. We simply forget about such expected errors until it falls, and we solve such problems pointwise.
+It’s hard to remember all the cases when all these flags should be updated or reset - e.g. isLoading = true does not make sense with success or fail loaded data.
+I propose to initially consider errors as full-fledged residents of our city and never trust the backend, even if we are happy owners of the FullStack Developer title.
+
+Let's use a representation of the data to show you that it can contain both the data and the expected error. Meet
+
+
+
+
+image
+
+
+In general, this is a union type. On the left - is an error on the right - is correct data.
+
+However, I propose using something other than the self-written type to take it readily. Many take the kind from the fp-ts library, but I suggest taking the more lightweight and understandable @sweet-monads/either.
+
+
+
+
+image
+
+
+The easiest way to convert it is with a simple RxJS operator that automatically catches network errors and converts them into an error structure. For simplicity, let's save only the error text - I will consider the solution to the state of progress in the following article.
+
+
+
+image
+
+
+What is the beauty of such an operator as a separate unit in the application - that we can apply it pointwise, in different places of the application, and not migrate entirely? It also separates expected errors from unexpected ones.
+
+The code using this operator will look like this.
+
+
+
+
+image
+
+
+It is better to show data in HTML by creating special directives and wrapper components (it is also available in the alpha version in npm as a package). I will not give them here, and I suggest studying the updated example, including the code, at this link.
+
+
+
+image
+
+
+The main changes are the appearance of the Either component and the use of the right data through the ifRight structural directive.
+
+Now, with the expected network crash, we will show the text of the error, and in the case of loaded data, we will work with them. There are still tasks that need to be covered, e.g. loading state, but I will cover them in the following article.
+
+
+
+
+image
+
+
+Conclusion
+
+We are sure that the expected error will be handled and shown here, primarily with projects based on code generators.
